@@ -60,8 +60,8 @@ module.exports = (options) => {
     options.strict
       ? strictTld
       : options.tlds
-      ? `(?:${options.tlds.sort((a, b) => b.length - a.length).join('|')})`
-      : defaultTlds
+        ? `(?:${options.tlds.sort((a, b) => b.length - a.length).join('|')})`
+        : defaultTlds
   })${options.trailingPeriod ? '\\.?' : ''}`;
 
   let disallowedChars = '\\s"';
@@ -86,7 +86,7 @@ module.exports = (options) => {
   let regex = `(?:${protocol}|www\\.)${auth}(?:`;
   if (options.localhost) regex += 'localhost|';
   if (options.ipv4) regex += `${ipv4}|`;
-  if (options.ipv6) regex += `${ipv6}|`;
+  if (options.ipv6) regex += `${ipv6}|\\[${ipv6}\\]|`;
   regex += `${host}${domain}${tld})${port}${path}`;
 
   // Add option to return the regex string instead of a RegExp
